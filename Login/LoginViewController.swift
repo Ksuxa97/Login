@@ -7,71 +7,86 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
-
-    @IBOutlet var login: UITextField!
-    @IBOutlet var password: UITextField!
-    @IBOutlet var getLogin: UIButton!
-    @IBOutlet var getPwd: UIButton!
-    @IBOutlet var logIn: UIButton!
+class LoginViewController: UIViewController {
+    
+    // MARK: - IB Outlets
+    @IBOutlet var loginTextField: UITextField!
+    @IBOutlet var passwordTextField: UITextField!
+    
+    private let user = "User"
+    private let password = "Password"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        login.placeholder = "Login"
-        password.placeholder = "Password"
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGestureRecognizer)
-        
-        login.delegate = self
-        password.delegate = self
+        loginTextField.placeholder = "Login"
+        passwordTextField.placeholder = "Password"
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)  // Скрывает клавиатуру для всех полей
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if textField == login {
-            password.becomeFirstResponder()
-        } else if textField == password && !(password.text?.isEmpty ?? true) {
-            
-        }
-        else { textField.resignFirstResponder() } // 3️⃣ Убираем фокус с поля
-        
-        return true  // 4️⃣ Разрешаем действие
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let welcomeVC = segue.destination as? WelcomeViewController else {return}
-        guard let userName = login?.text else {return}
+        guard let userName = loginTextField?.text else {return}
         welcomeVC.welcomeText = "Welcome, \(userName)!"
     }
     
-    @IBAction func unwind(for segue: UIStoryboardSegue) {
-        self.login.text = ""
-        self.password.text = ""
+    @IBAction func unwindSegue(for segue: UIStoryboardSegue) {
+        self.loginTextField.text = ""
+        self.passwordTextField.text = ""
     }
     
-    @IBAction func showPassword(){
-        let alert = UIAlertController(
-                title: "Your password is:",
-                message: "123",
-                preferredStyle: .alert
+    @IBAction func loginButtonPressed() {
+        guard loginTextField.text == user, passwordTextField.text == password else {
+            showAlert(
+                title: "Error",
+                message: "Invalid login or password",
+                textField: passwordTextField
             )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+            return
+        }
+        
+        performSegue(withIdentifier: "openWelcomeVC", sender: nil)
     }
     
-    // Метод для скрытия клавиатуры тапом по экрану
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        super .touchesBegan(touches, with: event)
-//        view.endEditing(true)  // Скрывает клавиатуру
-//    }
-
-
-
+    @IBAction func showAuthorizationData(_ sender: UIButton) {
+        sender.tag == 0
+        ? showAlert(title: "Oops!", message: "Your name is \(user) 😉")
+        : showAlert(title: "Oops!", message: "Your password is \(password) 😉")
+    }
 }
 
+// MARK: - Alert Controller
+extension LoginViewController {
+    private func showAlert(title: String, message: String, textField: UITextField? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            textField?.text = ""
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+}
+
+// MARK: - Keyboard
+
+extension LoginViewController: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField == loginTextField {
+            passwordTextField.becomeFirstResponder()
+        }
+        else {
+            loginButtonPressed()
+        }
+        return true
+    }
+    
+}
