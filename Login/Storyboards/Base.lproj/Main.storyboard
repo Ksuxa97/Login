@@ -8,6 +8,53 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--User-->
+        <scene sceneID="nOf-qk-5lX">
+            <objects>
+                <viewController id="pm5-rX-YgM" customClass="UserInfoViewController" customModule="Login" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hV4-bG-MUk">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="sYV-6U-W8k"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="User" image="person" catalog="system" id="iXW-Kx-lQe"/>
+                    <navigationItem key="navigationItem" id="62e-WB-kcv">
+                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="zta-AU-7dM">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="QCG-W8-Vch">
+                                <rect key="frame" x="290" y="5" width="96" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="More info"/>
+                                <connections>
+                                    <segue destination="dCl-PS-dYn" kind="show" id="QsT-Da-dap"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cac-QV-R3R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1073" y="-194"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="S0K-Wg-kLu">
+            <objects>
+                <tabBarController id="cEH-Zb-mZe" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZW7-ui-JFd">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="AhX-E9-QbF" kind="relationship" relationship="viewControllers" id="UQ5-js-91D"/>
+                        <segue destination="DwV-At-fCe" kind="relationship" relationship="viewControllers" id="zkb-3c-022"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cV8-Lz-EGJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-523" y="-475"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -93,14 +140,31 @@
                     <connections>
                         <outlet property="loginTextField" destination="fhV-LK-VSB" id="rAm-7B-JZ7"/>
                         <outlet property="passwordTextField" destination="RI1-uV-se1" id="Ztq-qY-mGW"/>
-                        <segue destination="AhX-E9-QbF" kind="presentation" identifier="openWelcomeVC" modalPresentationStyle="fullScreen" id="yEa-7g-E6H"/>
+                        <segue destination="cEH-Zb-mZe" kind="presentation" identifier="openWelcomeVC" modalPresentationStyle="fullScreen" id="fmo-RY-hC8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986.56716417910445" y="7.5514874141876422"/>
+            <point key="canvasLocation" x="-1360" y="-475"/>
         </scene>
-        <!--Welcome View Controller-->
+        <!--User-->
+        <scene sceneID="yFE-WY-Mbk">
+            <objects>
+                <navigationController id="DwV-At-fCe" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="User" image="person" catalog="system" id="f0E-Iw-98P"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BT9-LD-KFL">
+                        <rect key="frame" x="0.0" y="62" width="402" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pm5-rX-YgM" kind="relationship" relationship="rootViewController" id="8px-vF-Xvn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OSr-SY-5pR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="264" y="-194"/>
+        </scene>
+        <!--Home-->
         <scene sceneID="hK0-dU-uAr">
             <objects>
                 <viewController id="AhX-E9-QbF" customClass="WelcomeViewController" customModule="Login" customModuleProvider="target" sceneMemberID="viewController">
@@ -109,10 +173,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fmx-M8-ZZC">
-                                <rect key="frame" x="160.33333333333334" y="408" width="81.666666666666657" height="58"/>
+                                <rect key="frame" x="160.33333333333334" y="420" width="81.666666666666657" height="34.333333333333314"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Log out"/>
                                 <connections>
-                                    <segue destination="EQw-BJ-Xvc" kind="unwind" unwindAction="unwindFor:" id="HIA-eM-LWh"/>
+                                    <segue destination="EQw-BJ-Xvc" kind="unwind" unwindAction="unwindSegueFor:" id="EGN-P8-IRE"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="122" translatesAutoresizingMaskIntoConstraints="NO" id="kmf-lf-eki">
@@ -133,12 +197,9 @@
                             <constraint firstItem="Fmx-M8-ZZC" firstAttribute="centerX" secondItem="Ymq-PM-jkH" secondAttribute="centerX" id="ek8-4Y-Uvm"/>
                             <constraint firstItem="Fmx-M8-ZZC" firstAttribute="centerY" secondItem="Ymq-PM-jkH" secondAttribute="centerY" id="gRx-Qg-vci"/>
                             <constraint firstItem="kmf-lf-eki" firstAttribute="top" secondItem="fwQ-Tr-q2q" secondAttribute="top" constant="181" id="nOg-pQ-GT9"/>
-                            <constraint firstItem="fwQ-Tr-q2q" firstAttribute="bottom" secondItem="Fmx-M8-ZZC" secondAttribute="bottom" constant="374" id="yu0-pq-Kcc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="OfQ-tr-CHg">
-                        <barButtonItem key="backBarButtonItem" title="logoutButton" id="kaM-Bv-3O4"/>
-                    </navigationItem>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="uVq-DY-r9j"/>
                     <connections>
                         <outlet property="logoutButton" destination="Fmx-M8-ZZC" id="YvL-c5-JGu"/>
                         <outlet property="welcomeLabel" destination="kmf-lf-eki" id="Cxn-3g-0w5"/>
@@ -147,10 +208,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f6m-uU-zhF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="EQw-BJ-Xvc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1742.7480916030534" y="8.4507042253521139"/>
+            <point key="canvasLocation" x="263" y="-870"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="UXO-0P-8w6">
+            <objects>
+                <viewController id="dCl-PS-dYn" customClass="ImageViewController" customModule="Login" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EVD-BX-Ynn">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iV4-lr-7UQ">
+                                <rect key="frame" x="81" y="373" width="240" height="151"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="IGz-Hk-The"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iV4-lr-7UQ" firstAttribute="leading" secondItem="IGz-Hk-The" secondAttribute="leading" constant="81" id="7Je-2G-H5r"/>
+                            <constraint firstItem="iV4-lr-7UQ" firstAttribute="centerY" secondItem="IGz-Hk-The" secondAttribute="centerY" id="kYe-tP-nzf"/>
+                            <constraint firstItem="iV4-lr-7UQ" firstAttribute="top" secondItem="IGz-Hk-The" secondAttribute="top" constant="267" id="mjE-BZ-hkf"/>
+                            <constraint firstItem="iV4-lr-7UQ" firstAttribute="centerX" secondItem="IGz-Hk-The" secondAttribute="centerX" id="vvN-L9-vd0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="EaU-pq-lqd"/>
+                    <connections>
+                        <outlet property="personImageView" destination="iV4-lr-7UQ" id="INO-me-gSg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TzP-qF-Q78" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1813" y="-194"/>
         </scene>
     </scenes>
     <resources>
+        <image name="house" catalog="system" width="128" height="104"/>
+        <image name="person" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

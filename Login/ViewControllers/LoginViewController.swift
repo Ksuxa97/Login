@@ -12,9 +12,8 @@ class LoginViewController: UIViewController {
     // MARK: - IB Outlets
     @IBOutlet var loginTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
-    
-    private let user = "User"
-    private let password = "Password"
+
+    private let user = User.getUserData()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,13 +23,21 @@ class LoginViewController: UIViewController {
     }
     
     @objc func dismissKeyboard() {
-        view.endEditing(true)  // Скрывает клавиатуру для всех полей
+        view.endEditing(true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let welcomeVC = segue.destination as? WelcomeViewController else {return}
-        guard let userName = loginTextField?.text else {return}
-        welcomeVC.welcomeText = "Welcome, \(userName)!"
+        guard let tabBarController = segue.destination as? UITabBarController else {return}
+        guard let viewControllers = tabBarController.viewControllers else {return}
+
+        viewControllers.forEach {
+            if let welcomeVC = $0 as? WelcomeViewController {
+                welcomeVC.user = user
+            } else if let navigationVC = $0 as? UINavigationController {
+                guard let userInfoVC = navigationVC.topViewController as? UserInfoViewController else {return} 
+                userInfoVC.user = user
+            }
+        }
     }
     
     @IBAction func unwindSegue(for segue: UIStoryboardSegue) {
@@ -39,7 +46,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonPressed() {
-        guard loginTextField.text == user, passwordTextField.text == password else {
+        guard loginTextField.text == user.login, passwordTextField.text == user.password else {
             showAlert(
                 title: "Error",
                 message: "Invalid login or password",
@@ -53,8 +60,8 @@ class LoginViewController: UIViewController {
     
     @IBAction func showAuthorizationData(_ sender: UIButton) {
         sender.tag == 0
-        ? showAlert(title: "Oops!", message: "Your name is \(user) 😉")
-        : showAlert(title: "Oops!", message: "Your password is \(password) 😉")
+        ? showAlert(title: "Oops!", message: "Your name is \(user.login) 😉")
+        : showAlert(title: "Oops!", message: "Your password is \(user.password) 😉")
     }
 }
 
